@@ -21,13 +21,24 @@ function fish_prompt --description 'Write out the prompt'
             set suffix (set_color --bold red) $suffix (set_color normal)
     end
 
-    set -g __fish_git_prompt_showcolorhints yes
-    set -g __fish_git_prompt_showdirtystate yes
-    set -g __fish_git_prompt_showstashstate yes
-    set -g __fish_git_prompt_showuntrackedfiles yes
-
     echo -n -s "$USER" @ (prompt_hostname) ' '             \
-    (set_color $color_cwd) (prompt_pwd) (set_color normal) \
-    (__fish_git_prompt)                                    \
-    $suffix ' '
+    (set_color $color_cwd) (prompt_pwd) (set_color normal)
+
+    set -l git_prompt yes
+    for pattern in $fish_prompt_git_ignored_patterns
+        if string match -q "$pattern" "$PWD"
+            set git_prompt no
+            break
+        end
+    end
+
+    if test $git_prompt = yes
+        set -g __fish_git_prompt_showcolorhints yes
+        set -g __fish_git_prompt_showdirtystate yes
+        set -g __fish_git_prompt_showstashstate yes
+        set -g __fish_git_prompt_showuntrackedfiles yes
+        echo -n -s (__fish_git_prompt)
+    end
+
+    echo -n -s $suffix ' '
 end
