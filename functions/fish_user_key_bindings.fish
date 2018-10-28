@@ -11,7 +11,12 @@ function fish_user_key_bindings
 
     function __ranger-cd
         set tempfile (mktemp -t tmp.XXXXXX)
-        ranger --choosedir=$tempfile (pwd)
+        set -l ranger_flags
+        if set -q fish_history; and test -z "$fish_history"
+            ranger -c --choosedir=$tempfile (pwd)
+        else
+            ranger --choosedir=$tempfile (pwd)
+        end
         if test -f $tempfile
             cd (cat $tempfile)
         end
@@ -35,7 +40,7 @@ function fish_user_key_bindings
 
     function __change_history_file
         read -P (set_color green)"history"(set_color normal)"> " fish_history
-        if [ -z "$fish_history" ]
+        if test -z "$fish_history"
             set -e fish_history
         end
         commandline -f repaint
