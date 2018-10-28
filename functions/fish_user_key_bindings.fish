@@ -46,6 +46,17 @@ function fish_user_key_bindings
         commandline -f repaint
     end
     bind \cxh __change_history_file
+    function __dirlocal_history
+        if test -n "$fish_history"
+            set -ge fish_history
+            set -ge prompt_suffix
+        else
+            set -g fish_history (string escape --style=var $PWD)
+            set -g prompt_suffix (set_color purple) '#' (set_color normal)
+        end
+        commandline -f repaint
+    end
+    bind \e\ch __dirlocal_history
 
     function __accept-and-hold
         set cmd (commandline)
