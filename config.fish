@@ -11,6 +11,13 @@ if not status is-interactive
     exit
 end
 
+# Initialize the pretty ls(1) colors if available.
+if test -r ~/.dircolors
+    eval (dircolors -c ~/.dircolors)
+else
+    eval (dircolors -c)
+end
+
 
 function __postexec_bell --on-event fish_postexec
     printf '\a'
