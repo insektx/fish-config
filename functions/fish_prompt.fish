@@ -2,6 +2,12 @@ function fish_prompt --description 'Write out the prompt'
     set -l color_cwd
     set -l suffix
 
+    switch "$status"
+        case 0
+        case '*'
+            set suffix_color (set_color --bold red) (set_color normal)
+    end
+
     switch "$USER"
         case root toor
             if set -q fish_color_cwd_root
@@ -13,12 +19,6 @@ function fish_prompt --description 'Write out the prompt'
         case '*'
             set color_cwd $fish_color_cwd
             set suffix '>'
-    end
-
-    switch "$status"
-        case 0
-        case '*'
-            set suffix (set_color --bold red) $suffix (set_color normal)
     end
 
     echo -n -s "$USER" @ (prompt_hostname) ' '             \
@@ -40,5 +40,6 @@ function fish_prompt --description 'Write out the prompt'
         echo -n -s (__fish_git_prompt)
     end
 
-    echo -n -s $suffix ' '
+    echo -n -s $prompt_suffix \
+    $suffix_color[1] $suffix $suffix_color[2] ' '
 end
