@@ -39,6 +39,5 @@ end
 
 alias lh 'ls -lh'
 alias annex 'git annex'
-alias ql quilt
 alias printl 'printf \'%s\n\''
 alias zsh 'env NOFISH=1 zsh'
