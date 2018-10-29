@@ -33,7 +33,7 @@ function fish_user_key_bindings
             return
         end
 
-        set sorted (ls -td $candidates)
+        set sorted (command ls -td $candidates)
         commandline --replace --current-token \
         (string escape --no-quoted $sorted[1])
     end
