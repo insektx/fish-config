@@ -28,13 +28,14 @@ function fish_user_key_bindings
     function __most_recent_file
         set arg (commandline --current-token)
 
-        set candidates $arg*
+        set candidates (string unescape $arg)*
         if test (count $candidates) = 0
             return
         end
 
         set sorted (ls -td $candidates)
-        commandline --replace --current-token (string escape $sorted[1])
+        commandline --replace --current-token \
+        (string escape --no-quoted $sorted[1])
     end
     bind \cxm __most_recent_file
 
