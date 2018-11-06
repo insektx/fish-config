@@ -13,9 +13,9 @@ end
 
 # Initialize the pretty ls(1) colors if available.
 if test -r ~/.dircolors
-    source (dircolors -c ~/.dircolors | psub)
+    dircolors -c ~/.dircolors | source
 else
-    source (dircolors -c | psub)
+    dircolors -c | source
 end
 
 source ~/.config/fish/hooks.fish
