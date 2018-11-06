@@ -71,7 +71,6 @@ function fish_user_key_bindings
             functions --erase __accept-and-hold-callback
             commandline --replace $cmd
             commandline --cursor $cursor
-            set -e cmd
         end
     end
     bind \ea __accept-and-hold
