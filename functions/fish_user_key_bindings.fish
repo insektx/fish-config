@@ -9,6 +9,10 @@ function fish_user_key_bindings
     end
     bind \e" " prepend-space
 
+    function priv
+        set -g fish_history
+    end
+
     function __ranger-cd
         set tempfile (mktemp -t tmp.XXXXXX)
         set -l ranger_flags
