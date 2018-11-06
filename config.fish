@@ -13,9 +13,9 @@ end
 
 # Initialize the pretty ls(1) colors if available.
 if test -r ~/.dircolors
-    eval (dircolors -c ~/.dircolors)
+    source (dircolors -c ~/.dircolors | psub)
 else
-    eval (dircolors -c)
+    source (dircolors -c | psub)
 end
 
 
