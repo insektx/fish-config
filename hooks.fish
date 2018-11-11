@@ -27,3 +27,7 @@ if test "$SESSION" = "emacs" -a -n "$WINDOWID"
         __exwm_chpwd
     end
 end
+
+function __preexec_save --on-event fish_preexec
+    set -g last_commandline $argv[1]
+end

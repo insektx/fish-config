@@ -66,6 +66,12 @@ function fish_user_key_bindings
     function __accept-and-hold
         set cmd (commandline)
         set cursor (commandline --cursor)
+
+        if test -z "$cmd"
+            commandline --replace "$last_commandline"
+            return
+        end
+
         commandline -f execute
         function __accept-and-hold-callback \
             --inherit-variable cmd          \
