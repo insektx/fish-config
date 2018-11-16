@@ -1,3 +1,4 @@
 /fishd.*
 /fish_universal_variables
+/fish_variables
 /functions/fzf_key_bindings.fish
