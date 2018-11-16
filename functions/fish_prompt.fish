@@ -21,7 +21,14 @@ function fish_prompt --description 'Write out the prompt'
             set suffix '>'
     end
 
-    echo -n -s "$USER" @ (prompt_hostname) ' '             \
+    if test -n "$SSH_CONNECTION"
+        set prompt_hostname \
+        (set_color --bold yellow) (prompt_hostname) (set_color normal)
+    else
+        set prompt_hostname (prompt_hostname)
+    end
+
+    echo -n -s "$USER" @ $prompt_hostname ' '              \
     (set_color $color_cwd) (prompt_pwd) (set_color normal)
 
     set -l git_prompt yes
