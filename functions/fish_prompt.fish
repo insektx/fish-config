@@ -16,19 +16,23 @@ function fish_prompt --description 'Write out the prompt'
                 set color_cwd $fish_color_cwd
             end
             set suffix '#'
+            set color_user red
         case '*'
             set color_cwd $fish_color_cwd
             set suffix '>'
+            set color_user green
     end
 
     if test -n "$SSH_CONNECTION"
         set prompt_hostname \
         (set_color --bold yellow) (prompt_hostname) (set_color normal)
     else
-        set prompt_hostname (prompt_hostname)
+        set prompt_hostname \
+        (set_color yellow) (prompt_hostname) (set_color normal)
     end
 
-    echo -n -s "$USER" @ $prompt_hostname ' '              \
+    echo -n -s (set_color $color_user) "$USER" (set_color normal) \
+    @ $prompt_hostname ' ' \
     (set_color $color_cwd) (prompt_pwd) (set_color normal)
 
     set -l git_prompt yes
