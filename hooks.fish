@@ -29,5 +29,8 @@ if test "$SESSION" = "emacs" -a -n "$WINDOWID"
 end
 
 function __preexec_save --on-event fish_preexec
-    set -g last_commandline $argv[1]
+    set trimmed (string trim $argv[1])
+    if test -n "$trimmed"
+        set -g last_commandline $argv[1]
+    end
 end
