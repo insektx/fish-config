@@ -23,7 +23,7 @@ function fish_prompt --description 'Write out the prompt'
             set color_user green
     end
 
-    if test -n "$SSH_CONNECTION"
+    if test -n "$SSH_TTY"
         set prompt_hostname \
         (set_color --bold yellow) (prompt_hostname) (set_color normal)
     else
