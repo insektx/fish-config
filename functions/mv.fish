@@ -1,3 +1,3 @@
 function mv --wraps=mv
-    command mv -i $argv
+    command mv -v $argv
 end

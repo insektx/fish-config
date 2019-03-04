@@ -20,11 +20,11 @@ end
 
 source ~/.config/fish/hooks.fish
 
-function history-fzf
-    history | fzf --multi | fish --interactive
-end
+set -x LC_ALL en_US.UTF-8
+set -x fish_user_paths ~/bin /usr/local/bin $fish_user_paths
 
 alias lh 'ls -lh'
-alias annex 'git annex'
-alias printl 'printf \'%s\n\''
 alias zsh 'env NOFISH=1 zsh'
+alias g 'git'
+alias get 'sudo apt-get install'
+alias remove 'sudo apt-get remove'

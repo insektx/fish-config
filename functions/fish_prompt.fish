@@ -2,12 +2,6 @@ function fish_prompt --description 'Write out the prompt'
     set -l color_cwd
     set -l suffix
 
-    switch "$status"
-        case 0
-        case '*'
-            set suffix_color (set_color --bold red) (set_color normal)
-    end
-
     switch "$USER"
         case root toor
             if set -q fish_color_cwd_root
@@ -44,11 +38,22 @@ function fish_prompt --description 'Write out the prompt'
     end
 
     if test $git_prompt = yes
-        set -g __fish_git_prompt_showcolorhints yes
-        set -g __fish_git_prompt_showdirtystate yes
-        set -g __fish_git_prompt_showstashstate yes
-        set -g __fish_git_prompt_showuntrackedfiles yes
-        echo -n -s (__fish_git_prompt)
+      set -g __fish_git_prompt_char_cleanstate "✔"
+      set -g __fish_git_prompt_char_conflictedstate "✖"
+      set -g __fish_git_prompt_char_dirtystate "✚"
+      set -g __fish_git_prompt_char_stagedstate "●"
+      set -g __fish_git_prompt_char_untrackedfiles " *"
+      set -g __fish_git_prompt_color_branch yellow
+      set -g __fish_git_prompt_color_cleanstate green
+      set -g __fish_git_prompt_color_dirtystate red
+      set -g __fish_git_prompt_color_invalidstate red
+      set -g __fish_git_prompt_color_stagedstate blue
+      set -g __fish_git_prompt_color_untrackedfiles red
+      set -g __fish_git_prompt_hide_untrackedfiles 1
+      set -g __fish_git_prompt_show_informative_status 1
+      set -g __fish_git_prompt_showupstream "none"
+
+      echo -n -s (__fish_git_prompt)
     end
 
     echo -n -s $prompt_suffix \
