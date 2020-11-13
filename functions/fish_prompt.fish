@@ -1,6 +1,8 @@
 function fish_prompt --description 'Write out the prompt'
     set -l color_cwd
     set -l suffix
+    set -l last_pipestatus $pipestatus
+    set -lx __fish_last_status $status # Export for __fish_print_pipestatus.
 
     switch "$USER"
         case root toor
@@ -56,6 +58,8 @@ function fish_prompt --description 'Write out the prompt'
       echo -n -s (__fish_git_prompt)
     end
 
+    set -l prompt_status (__fish_print_pipestatus " [" "]" "|" (set_color $fish_color_status) (set_color $bold_flag $fish_color_status) $last_pipestatus)
+
     echo -n -s $prompt_suffix \
-    $suffix_color[1] $suffix $suffix_color[2] ' '
+    $suffix_color[1] $prompt_status $suffix $suffix_color[2] ' '
 end
